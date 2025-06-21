@@ -6,7 +6,9 @@ from django.contrib.auth.models import AbstractUser
 class User(AbstractUser):
     pass    
 
-class Product(models.Model):
+
+"""Model que instancia o produto """
+class Product(models.Model): 
     name= models.CharField(max_length = 200)
     description = models.TextField()
     price = models.DecimalField(max_digits=10, decimal_places=2)
@@ -20,7 +22,7 @@ class Product(models.Model):
     def __str__(self):
         return self.name
     
-
+""" Model que instancia o pedido """
 class Order(models.Model):
     class StatusChoices(models.TextChoices):
         PENDING = 'Pending'
@@ -41,7 +43,7 @@ class Order(models.Model):
     def __str__(self):
         return f'Order{self.order_id} by {self.user.username}'
     
-
+""" Model que cria a relação de pedidos com as quantidades e valores de cada produto """
 class OrderItem(models.Model):
     order = models.ForeignKey(Order, on_delete=models.CASCADE)
     product = models.ForeignKey(Product, on_delete=models.CASCADE)
